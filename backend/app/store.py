@@ -7,6 +7,7 @@ from __future__ import annotations
 from typing import Any
 
 from app.seed import SEED_ROWS
+from app.seed_scenario import seed_scenario
 
 
 class Store:
@@ -14,6 +15,9 @@ class Store:
         self._tables: dict[str, list[dict[str, Any]]] = {
             name: [dict(row) for row in rows] for name, rows in SEED_ROWS.items()
         }
+        # 签收更正单独立成表，并注入 A/B、X/Y 核对场景数据
+        self._tables.setdefault("receipt_correction", [])
+        seed_scenario(self._tables)
 
     def module_names(self) -> list[str]:
         return sorted(self._tables)

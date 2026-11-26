@@ -29,3 +29,37 @@ class EntryPayload(BaseModel):
 class ActionPayload(BaseModel):
     action: str
     remark: str | None = None
+
+
+class SignoffPayload(BaseModel):
+    """来件详情提交实际签收归属与签收凭证。"""
+    operator: str
+    实际收件主体: str | None = None
+    签收凭证号: str | None = None
+    签收版本: str | None = None
+    签收行数: int | None = None
+    差异说明: str | None = None
+
+
+class ReturnPayload(BaseModel):
+    operator: str
+    reason: str = ""
+
+
+class CorrectionPayload(BaseModel):
+    operator: str
+    更正凭证号: str | None = None
+    更正说明: str | None = None
+    原签收凭证号: str | None = None
+    关联分发任务: int | None = None
+
+
+class CorrectionReviewPayload(BaseModel):
+    decision: str  # accept / reject
+    note: str | None = None
+
+
+class CorrectionResubmitPayload(BaseModel):
+    operator: str
+    更正凭证号: str
+    更正说明: str | None = None
